@@ -17,13 +17,15 @@ contract PointHelperScript is Script {
     console.log("Owner: %s", owner);
     address oracle = vm.envOr("ORACLE", deployer);
     console.log("Oracle: %s", oracle);
+    address dd = vm.envOr("DD", deployer);
+    console.log("DeData Address: %s", dd);
 
     //    vm.startBroadcast(deployerPrivateKey);
     vm.startBroadcast();
     address proxy = Upgrades.deployTransparentProxy(
       "PointHelper.sol",
       owner,
-      abi.encodeCall(PointHelper.initialize, (owner, oracle))
+      abi.encodeCall(PointHelper.initialize, (owner, oracle, dd, 1e5))
     );
     vm.stopBroadcast();
     console.log("Proxy Address: %s", proxy);

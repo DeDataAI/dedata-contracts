@@ -22,7 +22,7 @@
       "hash": "0xc5e511fa3ffb3a109cafc65c90b599febcf7c10be0cb6dc095fa207ad22538c6",
       "transactionType": "CREATE",
       "contractName": "TransparentUpgradeableProxy",
-      "contractAddress": "0x8909263a607656b27ceb36cdefdd156c42734e13",
+      "contractAddress": "0xFF45d2e4E35DdAdC12f6c5a853e9c4BA499e5538",
       "function": null,
       "arguments": [
         "0x3442b65B7Cf30583A10bB3a3aF576c1a48e214CF",
