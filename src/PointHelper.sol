@@ -49,6 +49,9 @@ contract PointHelper is Initializable, Nonces, OwnableUpgradeable {
   // @dev user address => token address => bonus
   mapping(address => mapping(address => uint256)) public userBonuses;
 
+  // @notice bonus nonces
+  mapping(address account => uint256) public bonusNonces;
+
   // -------- Events --------
   // @dev event of adding points
   event PointsAdded(
@@ -164,7 +167,9 @@ contract PointHelper is Initializable, Nonces, OwnableUpgradeable {
       "Invalid oracle signature"
     );
 
-    _useCheckedNonce(user, bonus.nonce);
+    // It is important to do x++ and not ++x here.
+    uint256 current = bonusNonces[user]++;
+    require(current == bonus.nonce, "Invalid bonus nonce");
 
     userBonuses[user][bonus.token] += bonus.amount;
 
