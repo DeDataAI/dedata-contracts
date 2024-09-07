@@ -18,7 +18,7 @@ https://book.getfoundry.sh/
 ### Install
 ```shell
 forge install foundry-rs/forge-std --no-commit
-forge install  OpenZeppelin/openzeppelin-contracts-upgradeable@v5.0.2 --no-commit
+forge install OpenZeppelin/openzeppelin-contracts-upgradeable@v5.0.2 --no-commit
 forge install OpenZeppelin/openzeppelin-foundry-upgrades@v0.3.1 --no-commit
 ```
 
@@ -37,6 +37,7 @@ $ forge test
 #### test a specific contract
 ```shell
 forge test --match-contract PointHelperTest -vvvvv --via-ir 
+forge test --match-contract PointHelperTest -vvvvv
 forge clean && forge test --match-contract PointHelperTest -vvvvv
 ```
 
@@ -64,6 +65,10 @@ $ anvil
 $ forge script script/PointHelper.s.sol:PointHelperScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
 # deploy the implementation contract
 $ forge script script/PointHelperImpl.s.sol:PointHelperImplScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
+# deploy the USDT contract
+$ forge script script/mock/USDT.s.sol:USDTScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
+# deploy the DD contract
+$ forge script script/DD.s.sol:DDScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
 ```
 
 ### Cast
