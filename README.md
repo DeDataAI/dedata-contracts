@@ -39,6 +39,7 @@ $ forge test
 forge test --match-contract PointHelperTest -vvvvv --via-ir 
 forge test --match-contract PointHelperTest -vvvvv
 forge clean && forge test --match-contract PointHelperTest -vvvvv
+forge test --match-contract UnionNFTTest -vvvvv
 ```
 
 ### Format
@@ -69,6 +70,8 @@ $ forge script script/PointHelperImpl.s.sol:PointHelperImplScript --rpc-url <you
 $ forge script script/mock/USDT.s.sol:USDTScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
 # deploy the DD contract
 $ forge script script/DD.s.sol:DDScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
+# deploy the UnionNFT contract
+$ forge script script/UnionNFT.s.sol:UnionNFTScript --rpc-url <your_rpc_url> --private-key <your_private_key> --broadcast --verify -vvvv
 ```
 
 ### Cast
