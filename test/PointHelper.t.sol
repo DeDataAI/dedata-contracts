@@ -116,16 +116,30 @@ contract PointHelperTest is Test {
     _addPoints(point);
 
     // claim tokens
+    uint256 firstClaim = 100 ether;
+    vm.startPrank(user);
+    pointHelper.claim(firstClaim);
+    vm.stopPrank();
+
+    // get user exchanged points
+    uint256 exchangedPoints = pointHelper.exchangedPoints(user);
+    assertEq(firstClaim, exchangedPoints);
+
+    // balance of user should be points * exchangeRate / 1e5
+    uint256 tokens = (firstClaim * exchangeRate) / 1e5;
+    assertEq(dd.balanceOf(user), tokens);
+
+    // claim tokens
     vm.startPrank(user);
     pointHelper.claim();
     vm.stopPrank();
 
     // get user exchanged points
-    uint256 exchangedPoints = pointHelper.exchangedPoints(user);
+    exchangedPoints = pointHelper.exchangedPoints(user);
     assertEq(points, exchangedPoints);
 
     // balance of user should be points * exchangeRate / 1e5
-    uint256 tokens = (points * exchangeRate) / 1e5;
+    tokens = (points * exchangeRate) / 1e5;
     assertEq(dd.balanceOf(user), tokens);
 
     console.log("User Points: %s", points);
@@ -138,8 +152,13 @@ contract PointHelperTest is Test {
     vm.expectRevert();
     pointHelper.claim();
     vm.stopPrank();
-  }
 
+    // it should revert if user tries to claim with more points than available
+    vm.startPrank(user);
+    vm.expectRevert();
+    pointHelper.claim(1 ether);
+    vm.stopPrank();
+  }
   /**
    * @dev Test claim bonus
    */

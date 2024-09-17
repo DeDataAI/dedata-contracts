@@ -151,6 +151,25 @@ contract PointHelper is Initializable, Nonces, OwnableUpgradeable {
   }
 
   /**
+   * @dev claim tokens with amount
+   * @param amount - Amount of points
+   */
+  function claim(uint256 amount) external {
+    require(amount > 0, "Invalid amount");
+    require(
+      userPoints[msg.sender].points >= exchangedPoints[msg.sender] + amount,
+      "Insufficient points"
+    );
+
+    exchangedPoints[msg.sender] += amount;
+
+    uint256 tokens = (amount * exchangeRate) / 1e5;
+    IERC20(token).safeTransfer(msg.sender, tokens);
+
+    emit Claimed(msg.sender, amount, tokens);
+  }
+
+  /**
    * @notice claim bonus
    * @param user - Address of the user
    * @param bonus - Bonus struct
